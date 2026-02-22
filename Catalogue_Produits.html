@@ -1,0 +1,855 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Sop Naby - Goodies | Catalogue de Produits</title>
+    <style>
+        /* Couleurs personnalisées */
+        :root {
+            --jaune-moutarde: #B8860B;
+            --jaune-clair: #DAA520;
+            --noir: #1a1a1a;
+            --blanc: #ffffff;
+            --gris-clair: #f5f5f5;
+        }
+
+        /* Réinitialisation */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--blanc);
+            color: var(--noir);
+        }
+
+        /* En-tête */
+        .header {
+            background: linear-gradient(135deg, var(--noir) 0%, #2a2a2a 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        /* Logo */
+        .logo-img {
+        height: 60px;
+        width: 60px;
+        border-radius: 50%;
+        object-fit: cover;
+}
+
+
+        /* Titre */
+        .site-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--jaune-moutarde);
+            text-align: center;
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+            flex: 1;
+        }
+
+        /* Boutons à droite */
+        .header-right {
+            display: flex;
+            gap: 15px;
+            align-items: center;
+        }
+
+        /* Boutons */
+        .nav-btn {
+            background-color: var(--jaune-moutarde);
+            color: var(--noir);
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(184, 134, 11, 0.3);
+        }
+
+        .nav-btn:hover {
+            background-color: var(--jaune-clair);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(184, 134, 11, 0.4);
+        }
+
+        .nav-btn:active {
+            transform: translateY(0);
+        }
+
+        /* ===== CARROUSEL VENDEURS ===== */
+        .carousel-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .carousel-container {
+            display: flex;
+            align-items: center;
+            gap: 40px;
+            
+            background: linear-gradient(135deg, var(--gris-clair) 0%, #efefef 100%);
+            
+            padding: 40px;
+            border-radius: 20px;
+
+            border: 3px solid var(--jaune-moutarde);
+
+            box-shadow:
+                8px 8px 0 var(--jaune-moutarde),  /* effet relief jaune */
+                15px 15px 30px rgba(0, 0, 0, 0.15); /* ombre profondeur */
+        }
+
+
+        /* Carrousel oval */
+        .carousel-wrapper {
+            position: relative;
+            flex: 0 0 350px;
+            height: 350px;
+        }
+        .carousel-oval {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            border-radius: 15px; /* arrondi léger */
+            overflow: hidden;
+            background-color: var(--blanc);
+            border: 4px solid var(--jaune-moutarde);
+            box-shadow: 0 0 30px rgba(184, 134, 11, 0.3);
+        }
+
+
+        .carousel-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            opacity: 0;
+            transition: opacity 1s ease-in-out;
+        }
+
+        .carousel-image.active {
+            opacity: 1;
+        }
+
+        /* Texte événement */
+        .event-info {
+            flex: 1;
+            min-width: 250px;
+        }
+
+        .vendor-name {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--noir);
+            margin-bottom: 10px;
+        }
+
+        .event-title {
+            font-size: 1.3rem;
+            color: var(--jaune-moutarde);
+            font-weight: 600;
+            margin-bottom: 15px;
+        }
+
+        .event-description {
+            font-size: 1rem;
+            color: #555;
+            line-height: 1.6;
+            margin-bottom: 20px;
+        }
+
+        .event-date {
+            font-size: 0.9rem;
+            color: #999;
+            font-style: italic;
+        }
+
+        .carousel-dots {
+            display: flex;
+            gap: 8px;
+            margin-top: 20px;
+        }
+
+        .dot {
+            width: 10px;
+            height: 10px;
+            border-radius: 50%;
+            background-color: #ddd;
+            cursor: pointer;
+            transition: background-color 0.3s;
+        }
+
+        .dot.active {
+            background-color: var(--jaune-moutarde);
+        }
+
+        /* ===== SECTION PRODUITS ===== */
+        .products-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .section-title {
+            font-size: 2rem;
+            color: var(--noir);
+            margin-bottom: 30px;
+            text-align: center;
+            border-bottom: 3px solid var(--jaune-moutarde);
+            padding-bottom: 15px;
+        }
+
+        .products-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 25px;
+        }
+
+        /* ===== CARTE PRODUIT AVEC FLIP 3D ===== */
+        .product-card-wrapper {
+            perspective: 1000px;
+            height: 380px;
+        }
+
+        .product-card {
+            position: relative;
+            width: 100%;
+            height: 100%;
+            transition: transform 1.2s ease-out;
+            transform-style: preserve-3d;
+        }
+
+        .product-card-wrapper:hover .product-card {
+            transform: rotateY(180deg);
+        }
+
+        .product-front,
+        .product-back {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            backface-visibility: hidden;
+            border-radius: 12px;
+            display: flex;
+            flex-direction: column;
+        }
+
+        /* Face avant */
+        .product-front {
+            background-color: var(--blanc);
+            overflow: hidden;
+
+            border: 3px solid var(--jaune-moutarde);
+
+            box-shadow:
+                6px 6px 0 var(--jaune-moutarde),
+                12px 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+    
+        .product-image {
+            width: 100%;
+            height: 370px;
+            overflow: hidden;
+            border-radius: 10px;
+        }
+
+        .product-image img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            display: block;
+        }
+
+
+        .product-name {
+            padding: 15px;
+            font-size: 1.2rem;
+            font-weight: 600;
+            color: var(--noir);
+        }
+
+        .product-price {
+            padding: 0 15px 15px;
+            font-size: 1.1rem;
+            font-weight: 700;
+            color: var(--jaune-moutarde);
+        }
+
+        /* Face arrière */
+        .product-back {
+            background: linear-gradient(135deg, var(--jaune-moutarde) 0%, var(--jaune-clair) 100%);
+            color: var(--noir);
+            transform: rotateY(180deg);
+            padding: 20px;
+            justify-content: space-between;
+
+            border: 3px solid var(--jaune-moutarde);
+
+            box-shadow:
+                6px 6px 0 var(--jaune-moutarde),
+                12px 12px 25px rgba(0, 0, 0, 0.15);
+        }
+
+        .product-back-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+        }
+
+        .product-back-description {
+            font-size: 0.95rem;
+            line-height: 1.6;
+            margin-bottom: 15px;
+            flex: 1;
+        }
+
+        .btn-want {
+            width: 100%;
+            padding: 12px;
+            background-color: var(--noir);
+            color: var(--blanc);
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .btn-want:hover {
+            background-color: #333;
+        }
+
+                /* ===== Section Livres ===== */
+        .livres-section {
+            background-color: #f1f3f67d;
+            padding: 50px 0;
+            border-top: 10px solid #1d1718;
+            border-radius: 20px;
+        }
+
+        .livres-section .products-container {
+            max-width: 1200px;
+            margin: auto;
+        }
+
+
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--noir) 0%, #2a2a2a 100%);
+            color: var(--blanc);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        .footer p {
+            font-size: 0.9rem;
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .header-left {
+                flex-direction: column;
+                gap: 15px;
+                width: 100%;
+            }
+
+            .header-right {
+                width: 100%;
+                justify-content: center;
+            }
+
+            .site-title {
+                font-size: 1.8rem;
+            }
+
+            .nav-btn {
+                padding: 10px 16px;
+                font-size: 0.9rem;
+            }
+
+            .carousel-container {
+                flex-direction: column;
+                gap: 30px;
+            }
+
+            .carousel-wrapper {
+                flex: 0 0 300px;
+                height: 300px;
+            }
+
+            .carousel-oval {
+                width: 280px;
+                height: 280px;
+            }
+
+            .event-info {
+                text-align: center;
+            }
+
+            .products-container {
+                grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+                gap: 15px;
+            }
+
+            .product-card-wrapper {
+                height: 350px;
+            }
+
+    </style>
+</head>
+<body>
+    <!-- En-tête avec logo, titre, contact et membres -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo">
+                    <img src="logosopnaby.png" alt="Logo Sop Naby" class="logo-img">
+                </div>
+                <h1 class="site-title">Sop Naby - Goodies</h1>
+            </div>
+            <div class="header-right">
+                <a href="membres.html" class="nav-btn">👥 Membres</a>
+                <a href="avis.html" class="nav-btn">⭐ Avis</a>
+                <a href="contact.html" class="nav-btn">📧 Contact</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- ===== CARROUSEL VENDEURS ===== -->
+    <section class="carousel-section">
+        <div class="carousel-container">
+            <!-- Carrousel oval -->
+            <div class="carousel-wrapper">
+                <div class="carousel-oval">
+                   <img class="carousel-image active" src="Ben.jpg" alt="image 1">
+                    <img class="carousel-image" src="image_logo.jpg" alt="image 2">
+                    <img class="carousel-image" src="image_pins.jpg" alt="image 3">
+                    <img class="carousel-image" src="image_pins_2.jpg" alt="image 4">
+
+                </div>
+            </div>
+
+            <!-- Infos événement -->
+            <div class="event-info">
+                <h2 class="vendor-name" id="vendorName">Vendeur 1</h2>
+                <h3 class="event-title" id="eventTitle">Marché du Centre-Ville</h3>
+                <p class="event-description" id="eventDesc">
+                    Découvrez nos dernières collections lors des grands de la Dahira comme les 72h. 
+                    Une ambiance conviviale avec des produits de qualité utiles qui vous accompagnent dans votre quotidien et rappelle l'amour que vous avez de la Dahira !
+                </p>
+                <p class="event-date" id="eventDate">📅 12 Février 2026</p>
+                
+                <!-- Dots de navigation -->
+                <div class="carousel-dots">
+                    <span class="dot active" onclick="currentSlide(0)"></span>
+                    <span class="dot" onclick="currentSlide(1)"></span>
+                    <span class="dot" onclick="currentSlide(2)"></span>
+                    <span class="dot" onclick="currentSlide(3)"></span>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Section produits -->
+    <main class="products-section">
+        <h2 class="section-title">Nos Goodies Sop Naby</h2>
+        <div class="products-container">
+            <!-- Produit 1 -->
+            <div class="product-card-wrapper">
+                <div class="product-card">
+                    <!-- Face avant -->
+                    <div class="product-front">
+                        <div class="product-image">
+                            <img src="image_pins_2.JPG" alt="Porte clé">
+                        </div>
+                        <h3 class="product-name">Porte clé</h3>
+                        <p class="product-price">10 €</p>
+                    </div>
+                    <!-- Face arrière -->
+                    <div class="product-back">
+                        <h3 class="product-back-title">Porte clé</h3>
+                        <p class="product-back-description">
+                            Le porte-clé personnalisé <span style="color: #060500; font-weight: bold;">SOP Naby</span> est un accessoire pratique et unique, idéal pour garder ses clés organisées. Il peut aussi être utilisé comme accessoire décoratif pour un sac ou comme idée cadeau originale.
+                        </p>
+                        <button class="btn-want" onclick="goToOrder('Porte clé', 10)">❤️ Je le veux In Shaa Allah!</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produit 2 -->
+            <div class="product-card-wrapper">
+                <div class="product-card">
+                    <!-- Face avant -->
+                    <div class="product-front">
+                         <div class="product-image">
+                            <img src="image_pins_2.JPG" alt="Sac à dos classique">
+                        </div>
+                        <h3 class="product-name">Sac à dos classique</h3>
+                        <p class="product-price">60 €</p>
+                    </div>
+                    <!-- Face arrière -->
+                    <div class="product-back">
+                        <h3 class="product-back-title">Sac à dos classique</h3>
+                        <p class="product-back-description">
+                            Design classique intemporel avec bracelet en acier inoxydable. Étanche à 50m, cette montre allie style et fonctionnalité.
+                        </p>
+                        <button class="btn-want" onclick="goToOrder('Sac à dos classique', 60)">❤️ Je le veux In Shaa Allah!</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produit 3 -->
+            <div class="product-card-wrapper">
+                <div class="product-card">
+                    <!-- Face avant -->
+                    <div class="product-front">
+                         <div class="product-image">
+                            <img src="image_pins_2.JPG" alt="Sac à dos niveau">
+                        </div>
+                        <h3 class="product-name">Sac à dos niveau</h3>
+                        <p class="product-price">70 €</p>
+                    </div>
+                    <!-- Face arrière -->
+                    <div class="product-back">
+                        <h3 class="product-back-title">Sac à dos niveau</h3>
+                        <p class="product-back-description">
+                            Protection UV 100% garantie avec verres polarisés. Montures confortables et résistantes, idéales pour l'été et les loisirs.
+                        </p>
+                        <button class="btn-want" onclick="goToOrder('Sac à dos niveau', 70)">❤️ Je le veux In Shaa Allah !</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produit 4 -->
+            <div class="product-card-wrapper">
+                <div class="product-card">
+                    <!-- Face avant -->
+                    <div class="product-front">
+                         <div class="product-image">
+                            <img src="image_pins_2.JPG" alt="Sac à dos Prenium">
+                        </div>
+                        <h3 class="product-name">Sac à dos Prenium</h3>
+                        <p class="product-price">100 €</p>
+                    </div>
+                    <!-- Face arrière -->
+                    <div class="product-back">
+                        <h3 class="product-back-title">Sac à dos 3</h3>
+                        <p class="product-back-description">
+                            Veste confortable et stylée en tissu de qualité. Parfaite pour toutes les saisons, elle se porte facilement avec n'importe quelle tenue.
+                        </p>
+                        <button class="btn-want" onclick="goToOrder('Sac à dos Prenium', 100)">❤️ Je le veux In Shaa Allah!</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produit 5 -->
+            <div class="product-card-wrapper">
+                <div class="product-card">
+                    <!-- Face avant -->
+                    <div class="product-front">
+                         <div class="product-image">
+                            <img src="image_pins_2.JPG" alt="Casquette">
+                        </div>
+                        <h3 class="product-name">Casquette</h3>
+                        <p class="product-price">10 €</p>
+                    </div>
+                    <!-- Face arrière -->
+                    <div class="product-back">
+                        <h3 class="product-back-title">Casquette</h3>
+                        <p class="product-back-description">
+                            Chaussures idéales pour tous les jours avec semelles ergonomiques. Confortables même après des heures de port, disponibles en plusieurs coloris.
+                        </p>
+                        <button class="btn-want" onclick="goToOrder('Casquette', 44.99)">❤️ Je le veux In Shaa Allah !</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Produit 6 -->
+            <div class="product-card-wrapper">
+                <div class="product-card">
+                    <!-- Face avant -->
+                    <div class="product-front">
+                         <div class="product-image">
+                            <img src="image_pins_2.JPG" alt="Porte carte">
+                        </div>
+                        <h3 class="product-name">Porte-carte</h3>
+                        <p class="product-price">10 €</p>
+                    </div>
+                    <!-- Face arrière -->
+                    <div class="product-back">
+                        <h3 class="product-back-title">Porte-carte</h3>
+                        <p class="product-back-description">
+                            Accessoire de prestige en matériaux nobles. Chaque pièce est unique et apporte une touche d'élégance à votre style personnel.
+                        </p>
+                        <button class="btn-want" onclick="goToOrder('Porte-carte', 10)">❤️ Je le veux In Shaa Allah !</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+<!-- ===== Section Livres ===== -->
+<main class="products-section livres-section">
+    <h2 class="section-title"> Les livres des intervenants</h2>
+    <div class="products-container">
+
+        <!-- Livre 1 -->
+        <div class="product-card-wrapper">
+            <div class="product-card">
+                <div class="product-front">
+                    <div class="product-image">
+                        <img src="livre_bentene.jpg" alt="A l'Ombre du Bénteñe">
+                    </div>
+                    <h3 class="product-name"> A l'Ombre du Bénteñe </h3>
+                    <p class="product-price">20 €</p>
+                </div>
+                <div class="product-back">
+                    <h3 class="product-back-title"> A l'Ombre du Bénteñe</h3>
+                    <p class="product-back-description">
+                        Découvrez ce livre de Cheikh Oumar SY.
+                    </p>
+                    <button class="btn-want" onclick="goToOrder('Titre du Livre 1', 19.99)">
+                        📖 Je le veux In Shaa Allah!
+                    </button>
+                </div>
+            </div>
+        </div>
+
+        <!-- Livre 2 -->
+        <div class="product-card-wrapper">
+            <div class="product-card">
+                <div class="product-front">
+                    <div class="product-image">
+                        <img src="livre_Maodo.jpg" alt="Livre_Maodo">
+                    </div>
+                    <h3 class="product-name">El Hadj Malick Sy 100 ans après</h3>
+                    <p class="product-price">20 €</p>
+                </div>
+                <div class="product-back">
+                    <h3 class="product-back-title">El Hadj Malick Sy 100 ans après</h3>
+                    <p class="product-back-description">
+                       Découvrez ce livre de CEZAT sur Maodo (rta)
+                    </p>
+                    <button class="btn-want" onclick="goToOrder('Titre du Livre 2', 24.99)">
+                        📖 Je le veux In Shaa Allah!
+                    </button>
+                </div>
+            </div>
+        </div>
+    
+        <!-- Livre 3 -->
+        <div class="product-card-wrapper">
+            <div class="product-card">
+                <div class="product-front">
+                    <div class="product-image">
+                        <img src="livre_contestations_islamisées.jpg" alt="Livre_Maodo">
+                    </div>
+                    <h3 class="product-name">Contestaions Islamisées : Le Sénégal entre diplomatie d’influence et islam politique</h3>
+                    <p class="product-price">20 €</p>
+                </div>
+                <div class="product-back">
+                    <h3 class="product-back-title">Contestations Islamisées : Le Sénégal entre diplomatie d’influence et islam politique</h3>
+                    <p class="product-back-description">
+                       Découvrez ce livre de Bakary SAMBE
+                    </p>
+                    <button class="btn-want" onclick="goToOrder('Titre du Livre 2', 24.99)">
+                        📖 Je le veux In Shaa Allah!
+                    </button>
+                </div>
+            </div>
+        </div>
+
+           <!-- Livre 4 -->
+        <div class="product-card-wrapper">
+            <div class="product-card">
+                <div class="product-front">
+                    <div class="product-image">
+                        <img src="livre_Maroc_africain.jpg" alt="Livre_Maodo">
+                    </div>
+                    <h3 class="product-name"> Le Maroc Africain</h3>
+                    <p class="product-price">20 €</p>
+                </div>
+                <div class="product-back">
+                    <h3 class="product-back-title">Le Maroc Africain</h3>
+                    <p class="product-back-description">
+                       Découvrez ce livre de Bakary SAMBE
+                    </p>
+                    <button class="btn-want" onclick="goToOrder('Titre du Livre 2', 20)">
+                        📖 Je le veux In Shaa Allah!
+                    </button>
+                </div>
+            </div>
+        </div>
+
+           <!-- Livre 5 -->
+        <div class="product-card-wrapper">
+            <div class="product-card">
+                <div class="product-front">
+                    <div class="product-image">
+                        <img src="livre_Islam_hier_aujourdhui.jpg" alt="De l'Islam d'hier et d'aujourd'hui">
+                    </div>
+                    <h3 class="product-name"> De l'Islam d'hier et d'aujourd'hui</h3>
+                    <p class="product-price">20 €</p>
+                </div>
+                <div class="product-back">
+                    <h3 class="product-back-title">De l'Islam d'hier et d'aujourd'hui</h3>
+                    <p class="product-back-description">
+                       Découvrez ce livre de Ferjane
+                    </p>
+                    <button class="btn-want" onclick="goToOrder('De l'Islam d'hier et d'aujourd'hui', 20)">
+                        📖 Je le veux In Shaa Allah!
+                    </button>
+                </div>
+            </div>
+        </div>
+
+           <!-- Livre 6 -->
+        <div class="product-card-wrapper">
+            <div class="product-card">
+                <div class="product-front">
+                    <div class="product-image">
+                        <img src="livre_confreries.jpg" alt="D'où viennent les confréries">
+                    </div>
+                    <h3 class="product-name"> D'où viennent les confréries</h3>
+                    <p class="product-price">10 €</p>
+                </div>
+                <div class="product-back">
+                    <h3 class="product-back-title">D'où viennent les confréries</h3>
+                    <p class="product-back-description">
+                       Découvrez ce livre de Ferjane
+                    </p>
+                    <button class="btn-want" onclick="goToOrder('D'où viennent les confréries', 10)">
+                        📖 Je le veux In Shaa Allah!
+                    </button>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</main>
+
+
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Sop Naby - Goodies. Tous droits réservés.</p>
+        <p>Votre cataloguage de produits personnalisés de qualité</p>
+    </footer>
+
+    <script>
+        // Données des vendeurs et événements
+        const vendorData = [
+            {
+                name: "Vendeur 1 - Aïssatou",
+                event: "Marché du Centre-Ville",
+                description: "Découvrez nos dernières collections lors du grand marché urbain du centre-ville. Une ambiance conviviale avec des produits de qualité et des réductions exclusives !",
+                date: "📅 12 Février 2026"
+            },
+            {
+                name: "Vendeur 2 - Mamadou",
+                event: "Festival des Artisans",
+                description: "Venez nous rencontrer au Festival des Artisans ! Dégustez nos produits traditionnels et profitez de nos offres spéciales pendant tout le festival.",
+                date: "📅 15 Février 2026"
+            },
+            {
+                name: "Vendeur 3 - Fatou",
+                event: "Expo Printemps",
+                description: "L'Exposition du Printemps vous invite à découvrir notre nouvelle collection. Des produits frais, des couleurs éclatantes et une atmosphère chaleureuse !",
+                date: "📅 20 Février 2026"
+            },
+            {
+                name: "Vendeur 4 - Samba",
+                event: "Nuit Commerciale",
+                description: "Rejoignez-nous pour la Grande Nuit Commerciale ! Magasinage toute la nuit avec des réductions jusqu'à 40% sur tous nos produits.",
+                date: "📅 22 Février 2026"
+            }
+        ];
+
+        let currentIndex = 0;
+
+        function showSlide(index) {
+            // Images
+            const images = document.querySelectorAll('.carousel-image');
+            images.forEach((img, i) => {
+                img.classList.toggle('active', i === index);
+            });
+
+            // Texte
+            document.getElementById('vendorName').textContent = vendorData[index].name;
+            document.getElementById('eventTitle').textContent = vendorData[index].event;
+            document.getElementById('eventDesc').textContent = vendorData[index].description;
+            document.getElementById('eventDate').textContent = vendorData[index].date;
+
+            // Dots
+            const dots = document.querySelectorAll('.dot');
+            dots.forEach((dot, i) => {
+                dot.classList.toggle('active', i === index);
+            });
+
+            currentIndex = index;
+        }
+
+        function currentSlide(n) {
+            showSlide(n);
+        }
+
+        function nextSlide() {
+            currentIndex = (currentIndex + 1) % vendorData.length;
+            showSlide(currentIndex);
+        }
+
+        // Auto-play - change tous les 5 secondes
+        setInterval(nextSlide, 5000);
+
+        // Fonction pour rediriger vers le formulaire de commande avec le produit pré-sélectionné
+        function goToOrder(productName, price) {
+            // Stocker les informations du produit en localStorage
+            localStorage.setItem('selectedProduct', productName);
+            localStorage.setItem('selectedPrice', price);
+            
+            // Rediriger vers la page de contact
+            window.location.href = 'contact.html';
+        }
+    </script>
+</body>
+</html>

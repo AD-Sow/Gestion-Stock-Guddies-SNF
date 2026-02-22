@@ -1,0 +1,829 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Contact | Sop Naby - Guddies</title>
+    <style>
+        :root {
+            --jaune-moutarde: #B8860B;
+            --jaune-clair: #DAA520;
+            --noir: #1a1a1a;
+            --blanc: #ffffff;
+            --gris-clair: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background-color: var(--blanc);
+            color: var(--noir);
+        }
+
+        /* En-tête */
+        .header {
+            background: linear-gradient(135deg, var(--noir) 0%, #2a2a2a 100%);
+            padding: 20px 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 30px;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background-color: var(--jaune-moutarde);
+            border-radius: 50%;
+            font-size: 2rem;
+            color: var(--noir);
+            font-weight: bold;
+        }
+
+        .site-title {
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--jaune-moutarde);
+            letter-spacing: 2px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.5);
+        }
+
+        .header-right {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background-color: var(--jaune-moutarde);
+            color: var(--noir);
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 8px rgba(184, 134, 11, 0.3);
+        }
+
+        .nav-btn:hover {
+            background-color: var(--jaune-clair);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 12px rgba(184, 134, 11, 0.4);
+        }
+
+        /* Contenu */
+        .contact-section {
+            max-width: 1200px;
+            margin: 60px auto;
+            padding: 0 20px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 50px;
+            color: var(--noir);
+        }
+
+        .contact-content {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 40px;
+            position: relative;
+        }
+
+        /* ===== FORMULAIRE COMMANDE ===== */
+        .order-form {
+            background-color: var(--gris-clair);
+            padding: 30px;
+            border-radius: 12px;
+            border-left: 4px solid var(--jaune-moutarde);
+        }
+
+        .order-form h3 {
+            color: var(--jaune-moutarde);
+            margin-bottom: 20px;
+            font-size: 1.3rem;
+        }
+
+        .form-group {
+            margin-bottom: 20px;
+        }
+
+        .form-group label {
+            display: block;
+            margin-bottom: 8px;
+            font-weight: 600;
+            color: var(--noir);
+        }
+
+        .form-group input,
+        .form-group select,
+        .form-group textarea {
+            width: 100%;
+            padding: 12px;
+            border: 2px solid #ddd;
+            border-radius: 6px;
+            font-family: inherit;
+            font-size: 1rem;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group select:focus,
+        .form-group textarea:focus {
+            outline: none;
+            border-color: var(--jaune-moutarde);
+        }
+
+        /* Groupe Produit et Quantité */
+        .product-quantity-group {
+            display: grid;
+            grid-template-columns: 2fr 1fr;
+            gap: 15px;
+        }
+
+        .product-quantity-group .form-group {
+            margin-bottom: 0;
+        }
+
+        .quantity-input {
+            padding: 12px !important;
+            text-align: center;
+            font-size: 1.1rem;
+            font-weight: 600;
+        }
+
+        .product-quantity-group input[type="number"] {
+            padding: 12px !important;
+        }
+
+        /* Couleur */
+        .color-group {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(50px, 1fr));
+            gap: 10px;
+            margin-top: 10px;
+        }
+
+        .color-option {
+            position: relative;
+            cursor: pointer;
+        }
+
+        .color-option input[type="radio"] {
+            display: none;
+        }
+
+        .color-box {
+            width: 100%;
+            aspect-ratio: 1;
+            border-radius: 8px;
+            border: 3px solid #ddd;
+            transition: all 0.3s;
+            cursor: pointer;
+        }
+
+        .color-option input[type="radio"]:checked + .color-box {
+            border-color: var(--noir);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+        }
+
+        .color-option:hover .color-box {
+            transform: scale(1.1);
+        }
+
+        .color-label {
+            display: block;
+            text-align: center;
+            font-size: 0.8rem;
+            margin-top: 5px;
+            color: #666;
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 100px;
+        }
+
+        .submit-btn {
+            background-color: var(--jaune-moutarde);
+            color: var(--noir);
+            padding: 12px 30px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.3s;
+            width: 100%;
+            margin-top: 20px;
+        }
+
+        .submit-btn:hover {
+            background-color: var(--jaune-clair);
+        }
+
+        .submit-btn:active {
+            transform: scale(0.98);
+        }
+
+        /* ===== RÉCAPITULATIF EN HAUT À DROITE ===== */
+        .order-summary {
+            position: sticky;
+            top: 100px;
+            background: linear-gradient(135deg, var(--jaune-moutarde) 0%, var(--jaune-clair) 100%);
+            padding: 25px;
+            border-radius: 12px;
+            box-shadow: 0 8px 25px rgba(184, 134, 11, 0.3);
+            color: var(--noir);
+        }
+
+        .order-summary h4 {
+            color: var(--noir);
+            margin-bottom: 20px;
+            font-size: 1.2rem;
+            font-weight: 700;
+        }
+
+        .summary-item {
+            display: flex;
+            justify-content: space-between;
+            padding: 12px 0;
+            border-bottom: 1px solid rgba(0, 0, 0, 0.1);
+            font-size: 0.95rem;
+        }
+
+        .summary-item:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            font-size: 1.2rem;
+            color: var(--noir);
+            margin-top: 15px;
+            padding-top: 15px;
+            border-top: 2px solid rgba(0, 0, 0, 0.1);
+        }
+
+        .summary-label {
+            font-weight: 600;
+        }
+
+        .summary-value {
+            text-align: right;
+        }
+
+        /* ===== INFOS CONTACT ===== */
+        .contact-info {
+            display: flex;
+            flex-direction: column;
+            gap: 30px;
+        }
+
+        .info-box {
+            background-color: var(--gris-clair);
+            padding: 25px;
+            border-radius: 12px;
+            border-left: 4px solid var(--jaune-moutarde);
+        }
+
+        .info-box h3 {
+            color: var(--jaune-moutarde);
+            margin-bottom: 10px;
+            font-size: 1.3rem;
+        }
+
+        .info-box p {
+            color: #555;
+            line-height: 1.6;
+        }
+
+        .success-message {
+            display: none;
+            background-color: #d4edda;
+            color: #155724;
+            padding: 15px;
+            border-radius: 8px;
+            margin-bottom: 20px;
+            border-left: 4px solid #28a745;
+        }
+
+        .success-message.show {
+            display: block;
+            animation: slideDown 0.3s;
+        }
+
+        @keyframes slideDown {
+            from {
+                transform: translateY(-20px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        /* Modal de confirmation */
+        .modal {
+            display: none;
+            position: fixed;
+            z-index: 1000;
+            left: 0;
+            top: 0;
+            width: 100%;
+            height: 100%;
+            background-color: rgba(0, 0, 0, 0.5);
+            animation: fadeIn 0.3s;
+        }
+
+        @keyframes fadeIn {
+            from {
+                opacity: 0;
+            }
+            to {
+                opacity: 1;
+            }
+        }
+
+        .modal-content {
+            background-color: var(--blanc);
+            margin: 10% auto;
+            padding: 30px;
+            border: 2px solid var(--jaune-moutarde);
+            border-radius: 12px;
+            width: 90%;
+            max-width: 500px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+            animation: slideIn 0.3s;
+        }
+
+        @keyframes slideIn {
+            from {
+                transform: translateY(-50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .modal-content h2 {
+            color: var(--jaune-moutarde);
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .modal-content p {
+            color: #555;
+            margin-bottom: 15px;
+            line-height: 1.6;
+        }
+
+        .modal-details {
+            background-color: var(--gris-clair);
+            padding: 20px;
+            border-radius: 8px;
+            margin: 20px 0;
+        }
+
+        .detail-line {
+            display: flex;
+            justify-content: space-between;
+            padding: 10px 0;
+            border-bottom: 1px solid #ddd;
+        }
+
+        .detail-line:last-child {
+            border-bottom: none;
+            font-weight: 700;
+            color: var(--jaune-moutarde);
+            font-size: 1.1rem;
+            margin-top: 10px;
+        }
+
+        .modal-buttons {
+            display: flex;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .modal-btn {
+            flex: 1;
+            padding: 12px;
+            border: none;
+            border-radius: 6px;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s;
+            font-size: 1rem;
+        }
+
+        .modal-btn-confirm {
+            background-color: var(--jaune-moutarde);
+            color: var(--noir);
+        }
+
+        .modal-btn-confirm:hover {
+            background-color: var(--jaune-clair);
+        }
+
+        .modal-btn-cancel {
+            background-color: #ddd;
+            color: var(--noir);
+        }
+
+        .modal-btn-cancel:hover {
+            background-color: #ccc;
+        }
+
+        .footer {
+            background: linear-gradient(135deg, var(--noir) 0%, #2a2a2a 100%);
+            color: var(--blanc);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .contact-content {
+                grid-template-columns: 1fr;
+            }
+
+            .header-container {
+                flex-direction: column;
+                gap: 15px;
+            }
+
+            .site-title {
+                font-size: 1.8rem;
+            }
+
+            .page-title {
+                font-size: 2rem;
+            }
+
+            .product-quantity-group {
+                grid-template-columns: 1fr;
+            }
+
+            .order-summary {
+                position: static;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- En-tête -->
+    <header class="header">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo-img">SN</div>
+                <h1 class="site-title">Sop Naby - Guddies</h1>
+            </div>
+            <div class="header-right">
+                <a href="index.html" class="nav-btn">🏠 Accueil</a>
+                <a href="membres.html" class="nav-btn">👥 Membres</a>
+            </div>
+        </div>
+    </header>
+
+    <!-- Section Contact / Commande -->
+    <main class="contact-section">
+        <h2 class="page-title">Commander vos Produits</h2>
+        
+        <div class="contact-content">
+            <!-- Colonne gauche : Formulaire -->
+            <div>
+                <div class="order-form">
+                    <h3>📦 Formulaire de Commande</h3>
+                    
+                    <div class="success-message" id="successMessage">
+                        ✓ Commande enregistrée avec succès ! Nous vous contacterons bientôt.
+                    </div>
+
+                    <form id="orderForm">
+                        <div class="form-group">
+                            <label for="name">Nom Complet *</label>
+                            <input type="text" id="name" name="name" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="email">Email *</label>
+                            <input type="email" id="email" name="email" required>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="phone">Téléphone *</label>
+                            <input type="tel" id="phone" name="phone" required>
+                        </div>
+
+                        <!-- Sélection du Produit et Quantité -->
+                        <div class="form-group">
+                            <label for="product">Sélectionnez un Produit *</label>
+                            <select id="product" name="product" required onchange="updatePrice()">
+                                <option value="">-- Choisir un produit --</option>
+                                <option value="Sac à Main Premium" data-price="29.99">👜 Sac à Main Premium - 29.99€</option>
+                                <option value="Montre Élégante" data-price="49.99">⌚ Montre Élégante - 49.99€</option>
+                                <option value="Lunettes de Soleil" data-price="39.99">👓 Lunettes de Soleil - 39.99€</option>
+                                <option value="Veste Tendance" data-price="59.99">🧥 Veste Tendance - 59.99€</option>
+                                <option value="Chaussures Confort" data-price="44.99">👠 Chaussures Confort - 44.99€</option>
+                                <option value="Bijou Raffiné" data-price="34.99">💍 Bijou Raffiné - 34.99€</option>
+                            </select>
+                        </div>
+
+                        <!-- Quantité -->
+                        <div class="product-quantity-group">
+                            <div class="form-group">
+                                <label for="quantity">Quantité *</label>
+                                <input type="number" id="quantity" name="quantity" value="1" min="1" max="50" required onchange="updatePrice()">
+                            </div>
+                        </div>
+
+                        <!-- Couleur -->
+                        <div class="form-group">
+                            <label>Choisissez une Couleur *</label>
+                            <div class="color-group">
+                                <div class="color-option">
+                                    <input type="radio" id="color-noir" name="color" value="Noir" required onchange="updatePrice()">
+                                    <div class="color-box" style="background-color: #1a1a1a;"></div>
+                                    <label class="color-label" for="color-noir">Noir</label>
+                                </div>
+                                <div class="color-option">
+                                    <input type="radio" id="color-blanc" name="color" value="Blanc" required onchange="updatePrice()">
+                                    <div class="color-box" style="background-color: #ffffff; border: 3px solid #ddd;"></div>
+                                    <label class="color-label" for="color-blanc">Blanc</label>
+                                </div>
+                                <div class="color-option">
+                                    <input type="radio" id="color-moutarde" name="color" value="Moutarde" required onchange="updatePrice()">
+                                    <div class="color-box" style="background-color: #B8860B;"></div>
+                                    <label class="color-label" for="color-moutarde">Moutarde</label>
+                                </div>
+                                <div class="color-option">
+                                    <input type="radio" id="color-rouge" name="color" value="Rouge" required onchange="updatePrice()">
+                                    <div class="color-box" style="background-color: #e74c3c;"></div>
+                                    <label class="color-label" for="color-rouge">Rouge</label>
+                                </div>
+                                <div class="color-option">
+                                    <input type="radio" id="color-bleu" name="color" value="Bleu" required onchange="updatePrice()">
+                                    <div class="color-box" style="background-color: #3498db;"></div>
+                                    <label class="color-label" for="color-bleu">Bleu</label>
+                                </div>
+                                <div class="color-option">
+                                    <input type="radio" id="color-vert" name="color" value="Vert" required onchange="updatePrice()">
+                                    <div class="color-box" style="background-color: #2ecc71;"></div>
+                                    <label class="color-label" for="color-vert">Vert</label>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="form-group">
+                            <label for="message">Message / Suggestions (optionnel)</label>
+                            <textarea id="message" name="message" placeholder="N'hésitez pas à nous laisser vos suggestions..."></textarea>
+                        </div>
+
+                        <button type="submit" class="submit-btn">✓ Envoyer la Commande</button>
+                    </form>
+                </div>
+
+                <!-- Informations de contact -->
+                <div class="contact-info" style="margin-top: 30px;">
+                    <div class="info-box">
+                        <h3>📞 Téléphone</h3>
+                        <p>
+                            +221 77 XXX XX XX<br>
+                            +221 70 XXX XX XX
+                        </p>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>📧 Email</h3>
+                        <p>
+                            contact@sopnaby.sn<br>
+                            support@sopnaby.sn
+                        </p>
+                    </div>
+
+                    <div class="info-box">
+                        <h3>ℹ️ Important</h3>
+                        <p>
+                            Votre commande sera confirmée par email après validation. Nos équipes vous contacteront pour finaliser la livraison.
+                        </p>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Colonne droite : Récapitulatif sticky -->
+            <div>
+                <div class="order-summary">
+                    <h4>📋 Récapitulatif Commande</h4>
+                    <div class="summary-item">
+                        <span class="summary-label">Produit :</span>
+                        <span class="summary-value" id="summaryProduct">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Couleur :</span>
+                        <span class="summary-value" id="summaryColor">-</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Prix Unitaire :</span>
+                        <span class="summary-value" id="summaryPrice">0.00€</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Quantité :</span>
+                        <span class="summary-value" id="summaryQuantity">0</span>
+                    </div>
+                    <div class="summary-item">
+                        <span class="summary-label">Total :</span>
+                        <span class="summary-value" id="summaryTotal">0.00€</span>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </main>
+
+    <!-- Modal de confirmation -->
+    <div id="confirmModal" class="modal">
+        <div class="modal-content">
+            <h2>✓ Confirmation de Commande</h2>
+            <p>Veuillez vérifier les détails de votre commande avant de confirmer :</p>
+            
+            <div class="modal-details">
+                <div class="detail-line">
+                    <span>Nom :</span>
+                    <span id="modalName">-</span>
+                </div>
+                <div class="detail-line">
+                    <span>Email :</span>
+                    <span id="modalEmail">-</span>
+                </div>
+                <div class="detail-line">
+                    <span>Téléphone :</span>
+                    <span id="modalPhone">-</span>
+                </div>
+                <div class="detail-line">
+                    <span>Produit :</span>
+                    <span id="modalProduct">-</span>
+                </div>
+                <div class="detail-line">
+                    <span>Couleur :</span>
+                    <span id="modalColor">-</span>
+                </div>
+                <div class="detail-line">
+                    <span>Quantité :</span>
+                    <span id="modalQuantity">-</span>
+                </div>
+                <div class="detail-line">
+                    <span>Total :</span>
+                    <span id="modalTotal">-</span>
+                </div>
+            </div>
+
+            <div class="modal-buttons">
+                <button class="modal-btn modal-btn-confirm" onclick="confirmOrder()">Confirmer la Commande</button>
+                <button class="modal-btn modal-btn-cancel" onclick="closeModal()">Annuler</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Sop Naby - Guddies. Tous droits réservés.</p>
+        <p>Votre cataloguage de produits de qualité</p>
+    </footer>
+
+    <script>
+        const productPrices = {
+            'Sac à Main Premium': 29.99,
+            'Montre Élégante': 49.99,
+            'Lunettes de Soleil': 39.99,
+            'Veste Tendance': 59.99,
+            'Chaussures Confort': 44.99,
+            'Bijou Raffiné': 34.99
+        };
+
+        function updatePrice() {
+            const productSelect = document.getElementById('product');
+            const quantityInput = document.getElementById('quantity');
+            const colorInputs = document.querySelectorAll('input[name="color"]');
+            
+            const product = productSelect.value;
+            const quantity = parseInt(quantityInput.value) || 1;
+            const color = Array.from(colorInputs).find(c => c.checked)?.value || '-';
+            
+            if (product && productPrices[product]) {
+                const unitPrice = productPrices[product];
+                const total = (unitPrice * quantity).toFixed(2);
+                
+                // Mettre à jour le récapitulatif
+                document.getElementById('summaryProduct').textContent = product;
+                document.getElementById('summaryColor').textContent = color;
+                document.getElementById('summaryPrice').textContent = unitPrice.toFixed(2) + '€';
+                document.getElementById('summaryQuantity').textContent = quantity;
+                document.getElementById('summaryTotal').textContent = total + '€';
+            } else {
+                document.getElementById('summaryProduct').textContent = '-';
+                document.getElementById('summaryColor').textContent = '-';
+                document.getElementById('summaryPrice').textContent = '0.00€';
+                document.getElementById('summaryQuantity').textContent = '0';
+                document.getElementById('summaryTotal').textContent = '0.00€';
+            }
+        }
+
+        document.getElementById('orderForm').addEventListener('submit', function(e) {
+            e.preventDefault();
+            
+            const name = document.getElementById('name').value;
+            const email = document.getElementById('email').value;
+            const phone = document.getElementById('phone').value;
+            const product = document.getElementById('product').value;
+            const color = Array.from(document.querySelectorAll('input[name="color"]')).find(c => c.checked)?.value;
+            const quantity = document.getElementById('quantity').value;
+            const total = document.getElementById('summaryTotal').textContent;
+            
+            if (!name || !email || !phone || !product || !color) {
+                alert('Veuillez remplir tous les champs obligatoires.');
+                return;
+            }
+            
+            // Afficher le modal de confirmation
+            document.getElementById('modalName').textContent = name;
+            document.getElementById('modalEmail').textContent = email;
+            document.getElementById('modalPhone').textContent = phone;
+            document.getElementById('modalProduct').textContent = product;
+            document.getElementById('modalColor').textContent = color;
+            document.getElementById('modalQuantity').textContent = quantity;
+            document.getElementById('modalTotal').textContent = total;
+            
+            document.getElementById('confirmModal').style.display = 'block';
+        });
+
+        function closeModal() {
+            document.getElementById('confirmModal').style.display = 'none';
+        }
+
+        function confirmOrder() {
+            // Enregistrer la commande (simulé)
+            console.log('Commande confirmée !');
+            
+            // Fermer le modal
+            closeModal();
+            
+            // Afficher le message de succès
+            const successMessage = document.getElementById('successMessage');
+            successMessage.classList.add('show');
+            
+            // Réinitialiser le formulaire
+            document.getElementById('orderForm').reset();
+            
+            // Réinitialiser le récapitulatif
+            document.getElementById('summaryProduct').textContent = '-';
+            document.getElementById('summaryColor').textContent = '-';
+            document.getElementById('summaryPrice').textContent = '0.00€';
+            document.getElementById('summaryQuantity').textContent = '0';
+            document.getElementById('summaryTotal').textContent = '0.00€';
+            
+            // Masquer le message après 5 secondes
+            setTimeout(() => {
+                successMessage.classList.remove('show');
+            }, 5000);
+        }
+
+        // Fermer le modal en cliquant en dehors
+        window.onclick = function(event) {
+            const modal = document.getElementById('confirmModal');
+            if (event.target == modal) {
+                modal.style.display = 'none';
+            }
+        }
+    </script>
+</body>
+</html>

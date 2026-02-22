@@ -1,0 +1,596 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Comparaison Produits | Sop Naby - Guddies</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600;700&family=Montserrat:wght@600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --jaune-moutarde: #B8860B;
+            --jaune-clair: #DAA520;
+            --noir: #1a1a1a;
+            --blanc: #ffffff;
+            --gris-clair: #f5f5f5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            background: linear-gradient(135deg, #f5f5f5 0%, #ffffff 100%);
+            color: var(--noir);
+        }
+
+        /* ===== EN-TÊTE ===== */
+        .header {
+            background: linear-gradient(135deg, var(--noir) 0%, #2a2a2a 100%);
+            padding: 20px 0;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.3);
+            position: sticky;
+            top: 0;
+            z-index: 100;
+        }
+
+        .header-container {
+            max-width: 1400px;
+            margin: 0 auto;
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 0 20px;
+            gap: 30px;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .logo-img {
+            height: 60px;
+            width: 60px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            background: linear-gradient(135deg, var(--jaune-moutarde) 0%, var(--jaune-clair) 100%);
+            border-radius: 50%;
+            font-size: 2rem;
+            color: var(--noir);
+            font-weight: bold;
+            box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3);
+        }
+
+        .header-title {
+            font-size: 1.8rem;
+            font-weight: 700;
+            color: var(--jaune-moutarde);
+            letter-spacing: 1px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        .header-right {
+            display: flex;
+            gap: 15px;
+        }
+
+        .nav-btn {
+            background: linear-gradient(135deg, var(--jaune-moutarde) 0%, var(--jaune-clair) 100%);
+            color: var(--noir);
+            padding: 12px 20px;
+            border: none;
+            border-radius: 8px;
+            font-size: 0.95rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            box-shadow: 0 4px 12px rgba(184, 134, 11, 0.3);
+        }
+
+        .nav-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 6px 16px rgba(184, 134, 11, 0.4);
+        }
+
+        /* ===== CONTENU ===== */
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+            padding: 40px 20px;
+        }
+
+        .page-title {
+            font-size: 2.5rem;
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--noir);
+            border-bottom: 3px solid var(--jaune-moutarde);
+            padding-bottom: 20px;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        /* ===== SÉLECTION PRODUITS ===== */
+        .selection-zone {
+            background: linear-gradient(135deg, rgba(184, 134, 11, 0.08) 0%, rgba(218, 165, 32, 0.05) 100%);
+            padding: 30px;
+            border-radius: 15px;
+            margin-bottom: 40px;
+            box-shadow: 0 8px 25px rgba(0, 0, 0, 0.08);
+            border: 2px solid rgba(184, 134, 11, 0.2);
+        }
+
+        .selection-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+            margin-bottom: 20px;
+        }
+
+        .product-selector {
+            display: flex;
+            flex-direction: column;
+            gap: 10px;
+        }
+
+        .product-selector label {
+            font-weight: 700;
+            color: var(--jaune-moutarde);
+            font-size: 1rem;
+        }
+
+        .product-selector select {
+            padding: 12px;
+            border: 2px solid var(--jaune-moutarde);
+            border-radius: 8px;
+            font-size: 0.95rem;
+            background-color: var(--blanc);
+            color: var(--noir);
+            font-weight: 500;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        .product-selector select:focus {
+            outline: none;
+            box-shadow: 0 0 15px rgba(184, 134, 11, 0.5);
+            border-color: var(--jaune-clair);
+        }
+
+        .remove-btn {
+            background: linear-gradient(135deg, #e74c3c 0%, #c0392b 100%);
+            color: var(--blanc);
+            border: none;
+            padding: 10px;
+            border-radius: 8px;
+            cursor: pointer;
+            font-weight: 600;
+            transition: all 0.3s;
+            margin-top: auto;
+        }
+
+        .remove-btn:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 12px rgba(231, 76, 60, 0.3);
+        }
+
+        .buttons-group {
+            display: flex;
+            gap: 15px;
+        }
+
+        .add-btn, .compare-btn {
+            flex: 1;
+            background: linear-gradient(135deg, var(--jaune-moutarde) 0%, var(--jaune-clair) 100%);
+            color: var(--noir);
+            border: none;
+            padding: 15px 30px;
+            border-radius: 10px;
+            font-weight: 700;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: all 0.3s;
+            box-shadow: 0 4px 15px rgba(184, 134, 11, 0.3);
+        }
+
+        .add-btn:hover, .compare-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(184, 134, 11, 0.4);
+        }
+
+        /* ===== GRAPHIQUES ===== */
+        .charts-section {
+            display: none;
+            margin-top: 40px;
+            animation: slideIn 0.5s ease;
+        }
+
+        .charts-section.show {
+            display: block;
+        }
+
+        @keyframes slideIn {
+            from {
+                opacity: 0;
+                transform: translateY(20px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .charts-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(500px, 1fr));
+            gap: 30px;
+            margin-bottom: 40px;
+        }
+
+        .chart-container {
+            background: linear-gradient(135deg, var(--blanc) 0%, #fafafa 100%);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 35px rgba(0, 0, 0, 0.12);
+            border: 1px solid rgba(184, 134, 11, 0.15);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .chart-container::before {
+            content: "";
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--jaune-moutarde) 0%, var(--jaune-clair) 100%);
+        }
+
+        .chart-container:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 15px 45px rgba(184, 134, 11, 0.2);
+        }
+
+        .chart-title {
+            font-size: 1.3rem;
+            font-weight: 700;
+            color: var(--noir);
+            margin-bottom: 25px;
+            text-align: center;
+            font-family: 'Montserrat', sans-serif;
+        }
+
+        canvas {
+            max-height: 400px;
+        }
+
+        .empty-message {
+            text-align: center;
+            padding: 60px 40px;
+            color: #999;
+            font-size: 1.2rem;
+            background: linear-gradient(135deg, var(--gris-clair) 0%, #f5f5f5 100%);
+            border-radius: 15px;
+            border: 2px dashed rgba(184, 134, 11, 0.3);
+        }
+
+        /* Footer */
+        .footer {
+            background: linear-gradient(135deg, var(--noir) 0%, #2a2a2a 100%);
+            color: var(--blanc);
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+        }
+
+        @media (max-width: 768px) {
+            .page-title {
+                font-size: 1.8rem;
+            }
+
+            .selection-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .charts-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .buttons-group {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <!-- ===== EN-TÊTE ===== -->
+    <div class="header">
+        <div class="header-container">
+            <div class="header-left">
+                <div class="logo-img">SN</div>
+                <h1 class="header-title">📊 Comparaison Produits</h1>
+            </div>
+            <div class="header-right">
+                <a href="http://127.0.0.1:5500/Dashboard_sopnaby.html" class="nav-btn">📊 Dashboard</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- ===== CONTENU ===== -->
+    <div class="container">
+        <h2 class="page-title">Comparez vos Produits</h2>
+
+        <!-- Zone de sélection -->
+        <div class="selection-zone">
+            <div id="selectionContainer" class="selection-grid"></div>
+            <div class="buttons-group">
+                <button class="add-btn" onclick="addProductSelector()">➕ Ajouter un Produit</button>
+                <button class="compare-btn" onclick="generateCharts()">📊 Générer la Comparaison</button>
+            </div>
+        </div>
+
+        <!-- Section Graphiques -->
+        <div id="chartsSection" class="charts-section">
+            <h3 style="text-align: center; margin-bottom: 40px; font-size: 1.8rem; color: var(--noir); font-family: 'Montserrat', sans-serif;">📈 Comparaison Graphique</h3>
+            <div class="charts-grid">
+                <div class="chart-container">
+                    <div class="chart-title">🛒 Commandé</div>
+                    <canvas id="orderedChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">📤 Sortie Stock</div>
+                    <canvas id="outChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">📊 Stock Restant</div>
+                    <canvas id="stockChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">💰 Prix Unitaire (€)</div>
+                    <canvas id="priceChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">💵 CA Stock (€)</div>
+                    <canvas id="caStockChart"></canvas>
+                </div>
+                <div class="chart-container">
+                    <div class="chart-title">💵 CA Restant (€)</div>
+                    <canvas id="caRestantChart"></canvas>
+                </div>
+            </div>
+        </div>
+
+        <div id="emptyMessage" class="empty-message" style="display: none;">
+            👆 Sélectionnez au moins 2 produits et cliquez sur "Générer la Comparaison"
+        </div>
+    </div>
+
+    <!-- Footer -->
+    <footer class="footer">
+        <p>&copy; 2026 Sop Naby - Guddies. Tous droits réservés.</p>
+        <p>Votre cataloguage de produits de qualité</p>
+    </footer>
+
+    <script>
+        const sheetURL = "https://docs.google.com/spreadsheets/d/1GSGbrgCTtjeIXgQKr0eoQU5hbdi2-cLaq0GQyjFM_Z4/export?format=csv&gid=0";
+        let products = [];
+        let selectedProducts = [];
+        let charts = {};
+
+        const chartColors = [
+            '#B8860B',
+            '#DAA520',
+            '#e74c3c',
+            '#3498db',
+            '#2ecc71',
+            '#f39c12',
+            '#9b59b6',
+            '#1abc9c'
+        ];
+
+        // CHARGER LES DONNÉES DU GOOGLE SHEET
+        async function loadData() {
+            try {
+                const response = await fetch(sheetURL);
+                const data = await response.text();
+                const rows = data.trim().split("\n").slice(1);
+
+                products = rows.map(row => {
+                    const cols = row.split(",");
+                    return {
+                        name: cols[0]?.trim() || "Produit",
+                        event: cols[1]?.trim() || "-",
+                        ordered: parseInt(cols[2]) || 0,
+                        out: parseInt(cols[3]) || 0,
+                        stock: parseInt(cols[4]) || 0,
+                        price: parseFloat(cols[5]) || 0,
+                        caStock: parseFloat(cols[6]) || 0,
+                        image: cols[7]?.trim() || "https://via.placeholder.com/100x130?text=" + encodeURIComponent(cols[0]),
+                        caRestant: parseFloat(cols[8]) || 0
+                    };
+                });
+
+                console.log("Produits chargés:", products);
+                addProductSelector();
+            } catch (error) {
+                console.error("Erreur lors du chargement:", error);
+                alert("Erreur: Impossible de charger les produits du Google Sheet");
+            }
+        }
+
+        // AJOUTER UN SÉLECTEUR DE PRODUIT
+        function addProductSelector() {
+            const container = document.getElementById("selectionContainer");
+            
+            if (products.length === 0) {
+                console.error("Aucun produit chargé");
+                return;
+            }
+
+            const selector = document.createElement("div");
+            selector.className = "product-selector";
+            
+            const selectOptions = products.map(p => `<option value="${p.name}">${p.name}</option>`).join('');
+            
+            selector.innerHTML = `
+                <label>Produit ${container.children.length + 1}</label>
+                <select onchange="updateSelection()">
+                    <option value="">-- Sélectionnez un produit --</option>
+                    ${selectOptions}
+                </select>
+                ${container.children.length > 0 ? `<button class="remove-btn" onclick="this.parentElement.remove(); updateSelection();">✕ Supprimer</button>` : ''}
+            `;
+            container.appendChild(selector);
+        }
+
+        // METTRE À JOUR LA SÉLECTION
+        function updateSelection() {
+            selectedProducts = [];
+            document.querySelectorAll(".product-selector select").forEach(select => {
+                if (select.value) {
+                    const product = products.find(p => p.name === select.value);
+                    if (product) {
+                        selectedProducts.push(product);
+                    }
+                }
+            });
+
+            console.log("Produits sélectionnés:", selectedProducts);
+
+            if (selectedProducts.length < 2) {
+                document.getElementById("chartsSection").classList.remove("show");
+                document.getElementById("emptyMessage").style.display = "block";
+            }
+        }
+
+        // GÉNÉRER LES GRAPHIQUES
+        function generateCharts() {
+            updateSelection();
+
+            if (selectedProducts.length < 2) {
+                alert("Veuillez sélectionner au moins 2 produits");
+                return;
+            }
+
+            document.getElementById("chartsSection").classList.add("show");
+            document.getElementById("emptyMessage").style.display = "none";
+
+            const productNames = selectedProducts.map(p => p.name);
+            const colors = chartColors.slice(0, selectedProducts.length);
+
+            // Préparer les données
+            const data = {
+                ordered: selectedProducts.map(p => p.ordered),
+                out: selectedProducts.map(p => p.out),
+                stock: selectedProducts.map(p => p.stock),
+                price: selectedProducts.map(p => p.price),
+                caStock: selectedProducts.map(p => p.caStock),
+                caRestant: selectedProducts.map(p => p.caRestant)
+            };
+
+            // Détruire les anciens graphiques
+            Object.values(charts).forEach(chart => {
+                if (chart) chart.destroy();
+            });
+            charts = {};
+
+            // Créer les 6 graphiques avec des styles améliorés
+            createChart('orderedChart', 'bar', productNames, data.ordered, colors, '🛒');
+            createChart('outChart', 'bar', productNames, data.out, colors, '📤');
+            createChart('stockChart', 'bar', productNames, data.stock, colors, '📊');
+            createChart('priceChart', 'line', productNames, data.price, colors, '💰');
+            createChart('caStockChart', 'bar', productNames, data.caStock, colors, '💵');
+            createChart('caRestantChart', 'line', productNames, data.caRestant, colors, '💵');
+
+            // Scroll vers les graphiques
+            document.getElementById("chartsSection").scrollIntoView({ behavior: 'smooth' });
+        }
+
+        // CRÉER UN GRAPHIQUE STYLÉ
+        function createChart(canvasId, type, labels, data, colors, emoji) {
+            const ctx = document.getElementById(canvasId).getContext('2d');
+            
+            charts[canvasId] = new Chart(ctx, {
+                type: type,
+                data: {
+                    labels: labels,
+                    datasets: [
+                        {
+                            label: emoji,
+                            data: data,
+                            backgroundColor: type === 'bar' ? colors.map(c => c + '40') : 'transparent',
+                            borderColor: colors,
+                            borderWidth: 3,
+                            fill: type === 'bar' ? true : false,
+                            tension: type === 'line' ? 0.4 : 0,
+                            pointRadius: type === 'line' ? 7 : 0,
+                            pointBackgroundColor: colors,
+                            pointBorderColor: '#fff',
+                            pointBorderWidth: 3,
+                            pointHoverRadius: type === 'line' ? 9 : 0,
+                            borderRadius: type === 'bar' ? 8 : 0,
+                            borderSkipped: false
+                        }
+                    ]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: true,
+                    interaction: {
+                        intersect: false,
+                        mode: 'index'
+                    },
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(0, 0, 0, 0.8)',
+                            padding: 12,
+                            borderRadius: 8,
+                            titleFont: { size: 14, weight: 'bold' },
+                            bodyFont: { size: 13 },
+                            borderColor: '#B8860B',
+                            borderWidth: 2
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: 'rgba(184, 134, 11, 0.1)',
+                                drawBorder: false
+                            },
+                            ticks: {
+                                font: { weight: '600' }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false
+                            },
+                            ticks: {
+                                font: { weight: '600' }
+                            }
+                        }
+                    }
+                }
+            });
+        }
+
+        // LANCER LE CHARGEMENT AU DÉMARRAGE
+        loadData();
+    </script>
+</body>
+</html>
